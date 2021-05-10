@@ -1,32 +1,54 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<div>
+  <!-- <b-overlay id="site-loader" show :variant="variant" :opacity="opacity" 
+  :blur="blur" rounded="sm" spinner-variant="primary" spinner-type="grow" > 
+  </b-overlay>-->
+    <Header />
+    <router-view :detail="detail" />
+    <Footer :detail="detail" />
+</div>
+  
+ 
+  
+
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import Header from '@/components/commons/Header.vue'
+import Footer from '@/components/commons/Footer.vue'
+export default {
+  name: "App",
+  components:{
+    Header,
+    Footer
+  },
+  data(){
+    return {
+      show: true,
+      defaultTitle: "Ravbytes Technology",
+      detail: {phone: "+234 704 086 1356", email: "info@ravbytes.com",address: "Address Here"}
     }
-  }
+  },
+  watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = `${this.defaultTitle} | ${to.name}` || this.defaultTitle;
+            }
+        },
+    }
+}
+</script>
+<style lang="scss">
+body{
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 </style>
