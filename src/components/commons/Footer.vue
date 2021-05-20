@@ -46,7 +46,7 @@
                 <ul class="list-unstyled w-100">
                 <li><a href="#"><span class="ion ion-ios-arrow-round-forward me-2"></span>Web Development</a></li>
                 <li><a href="#"><span class="ion ion-ios-arrow-round-forward me-2"></span>Web Hosting</a></li>
-                <li><a href="#"><span class="ion ion-ios-arrow-round-forward me-2"></span>Digital Marketinh</a></li>
+                <li><a href="#"><span class="ion ion-ios-arrow-round-forward me-2"></span>Digital Marketing</a></li>
                 </ul>
                 <ul class="list-unstyled w-100">
                 <li><a href="#"><span class="ion ion-ios-arrow-round-forward me-2"></span>Graphic Design</a></li>

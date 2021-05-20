@@ -36,30 +36,34 @@
                     </div>
                     <form @submit.prevent="submitContact" id="contactForm" name="contactForm" class="contactForm">
                       <div class="row">
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <input type="text" class="form-control" v-model="name" name="name" id="name" placeholder="Name">
-                          </div>
+                        <div class="col-12 mx-auto">
+                          <b-alert :show="alert.show" @dismissed="dismissCountDown=0" @dismiss-count-down="countDownChanged"  dismissible :variant="alert.status ? 'success' : 'danger'"  >
+                            {{alert.message}}
+                          </b-alert>
                         </div>
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <input type="email" class="form-control" v-model="email" name="email" id="email" placeholder="Email">
+                            <input type="text" class="form-control" required v-model="name" name="name" id="name" placeholder="Name">
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                           <div class="form-group">
-                            <input type="text" class="form-control" v-model="subject" name="subject" id="subject" placeholder="Subject">
+                            <input type="email" class="form-control" required v-model="email" name="email" id="email" placeholder="Email">
                           </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-lg-4">
                           <div class="form-group">
-                            <textarea name="message" class="form-control" v-model="message" id="message" cols="30" rows="7" placeholder="Create a message here"></textarea>
+                            <input type="text" class="form-control" required v-model="subject" name="subject" id="subject" placeholder="Subject">
                           </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-lg-12">
                           <div class="form-group">
-                            <input type="submit" value="Send Message" class="btn btn-primary">
-                            <div class="submitting"></div>
+                            <textarea name="message" class="form-control" required v-model="message" id="message" cols="30" rows="7" placeholder="Create a message here"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <input type="submit" :disabled="submitting" value="Send Message" class="btn btn-primary">
                           </div>
                         </div>
                       </div>
@@ -100,18 +104,49 @@ export default {
         email: "",
         subject: "",
         message: "",
-        // nodemailer: require("nodemailer")
+        alert: {
+          show: false,
+          status: true,
+          message: "Hello From here"
+        },
+        submitting: false
       }
     }, 
     components: {
-      Hero
+      Hero,
     },
     methods: {
       submitContact(){
-        const data = {name: this.name, email: this.email,subject: this.subject,message: this.message};
-
+        this.submitting = true;
+        this.alert.show = false;
+        const data = new FormData();
+        data.set("name",this.name);
+        data.set("email",this.email);
+        data.set("subject",this.subject);
+        data.set("message",this.message);
+        const settings = {
+          method: "POST",
+          body: data
+        }
+        return fetch("https://ravbytes.000webhostapp.com/sendMail.php",settings)
+        .then(response => response.json())
+        .then( (data) => {
+          this.alert = data
+          this.alert.show = true;
+          this.alert.status && this.resetContact()
+          this.submitting = false
+        }).catch(err => {
+          this.alert.status = false;
+          this.alert.message = "There was an error submitting your message, kindly try again."
+          this.submitting = false
+        });
       },
-
+      resetContact(){
+        this.name = ""
+        this.email = ""
+        this.subject = ""
+        this.message = ""
+      }
     }
 }
 </script>

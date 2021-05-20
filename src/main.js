@@ -9,11 +9,9 @@ import router from './router'
 import store from './store'
 import AOS from "aos"
 
-import './components/Mailer'
 
 app.AOS = new AOS.init({
   ease: 'slide',
-  once: true
 });
 Vue.config.productionTip = false;
 new Vue({
