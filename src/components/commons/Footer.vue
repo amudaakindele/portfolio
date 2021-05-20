@@ -28,7 +28,7 @@
                 <div class="col-md-6 col-lg">
                     <div class="ftco-footer-widget mb-4">
                        <b-navbar-brand to="/">
-                            <img src="../../assets/images/logo.png" width="200" class="img-fluid" alt="Ravbytes">
+                            <img src="../../assets/images/footer_logo.png" width="200" class="img-fluid" alt="Ravbytes">
                         </b-navbar-brand>
                         <p>We are leading professional in developing business applications, consultation and delivering pre-eminent services and values.</p>
                         <ul class="ftco-footer-social mt-4">
