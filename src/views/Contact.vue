@@ -128,7 +128,7 @@ export default {
           method: "POST",
           body: data
         }
-        return fetch("https://ravbytes.000webhostapp.com/sendMail.php",settings)
+        return fetch("/api/sendMail.php",settings)
         .then(response => response.json())
         .then( (data) => {
           this.alert = data
